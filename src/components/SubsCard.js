@@ -1,34 +1,71 @@
 import React from "react";
 import styled from "styled-components";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faBellSlash } from "@fortawesome/free-solid-svg-icons";
+import { pageAnimation } from "../animation/animation";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const SubsCard = () => {
+  const [subsIcon, setSubsIcon] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
   return (
-    <StyledCard>
-      <div className="profile_img">
-        <img
-          src={
-            "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-1.jpg"
-          }
-          alt=""
-        />
-      </div>
-      <div className="name">
-        <p>Channel Name</p>
-        <p>1.23k subscribers</p>
-      </div>
-      <div className="subs__btn">
-        <p>Subscribe</p>
-      </div>
-      <div className="icon">
-        <FontAwesomeIcon icon={faBell} />
-      </div>
-    </StyledCard>
+    <>
+      <StyledCard
+        variants={pageAnimation}
+        animate="show"
+        exit="exit"
+        initial="hidden"
+        isSubscribed={subscribed}
+      >
+        <div></div>
+        <div className="profile_img">
+          <motion.img
+            src={
+              "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-1.jpg"
+            }
+            alt=""
+            initial={{ rotate: 45, scale: 0.5 }}
+            animate={{
+              rotate: 0,
+              scale: 1,
+              transition: {
+                duration: 0.8,
+              },
+            }}
+            exit={{ scale: 0.5, rotate: 45 }}
+          />
+        </div>
+        <div className="name">
+          <p>Channel Name</p>
+          <p>1.23k subscribers</p>
+        </div>
+        <div
+          className="subs__btn"
+          onClick={() => {
+            setSubscribed(!subscribed);
+          }}
+        >
+          <p>{subscribed !== true ? "Subscribe" : "Subscribed"}</p>
+        </div>
+        <div
+          className="icon"
+          onClick={() => {
+            setSubsIcon(!subsIcon);
+          }}
+        >
+          <FontAwesomeIcon icon={subsIcon ? faBell : faBellSlash} />
+        </div>
+        <Link to="/2">
+          <div className="test"></div>
+        </Link>
+      </StyledCard>
+    </>
   );
 };
 
-const StyledCard = styled.div`
+const StyledCard = styled(motion.div)`
   margin: 0;
   padding: 0.4rem;
   box-sizing: border-box;
@@ -55,9 +92,9 @@ const StyledCard = styled.div`
     flex-direction: column;
   }
   .subs__btn {
-    background-color: red;
+    background-color: ${(props) => (props.isSubscribed ? "#f3f3f3" : "red")};
     padding: 0.5rem 2rem;
-    color: #fff;
+    color: ${(props) => (props.isSubscribed ? "#000" : "#fff")};
     letter-spacing: 1px;
     &:hover {
       background-color: #f5f5f5;
@@ -72,6 +109,10 @@ const StyledCard = styled.div`
       background-color: #f3f3f3;
       cursor: pointer;
     }
+  }
+  .test {
+    height: 10px;
+    width: 10px;
   }
 `;
 
