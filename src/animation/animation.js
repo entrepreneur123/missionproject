@@ -1,7 +1,8 @@
 export const pageAnimation = {
   hidden: {
-    opacity: 0,
+    opacity: 0.5,
     y: 200,
+    scale: 0.5,
     transition: {
       duration: 1,
     },
@@ -10,16 +11,15 @@ export const pageAnimation = {
     opacity: 1,
     y: 0,
     x: 0,
+    scale: 1,
     transition: {
       duration: 0.5,
-      staggerChildren: 1,
-      when: "beforeChildren",
-      mass:0.8
     },
   },
   exit: {
     opacity: 0,
     y: 300,
+    scale: 0.5,
     transition: {
       duration: 0.5,
     },

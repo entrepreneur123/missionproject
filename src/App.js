@@ -10,8 +10,8 @@ function App() {
         <Route path="/" exact>
           <SubsCard />
         </Route>
-        <Route path="/2">
-          <SubsCard />
+        <Route path="/2" >
+          <div></div>
         </Route>
       </Switch>
     </AnimatePresence>
